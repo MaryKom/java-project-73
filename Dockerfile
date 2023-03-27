@@ -1,8 +1,8 @@
-FROM gradle:7.4-jdk17
+FROM gradle:7.2.0-jdk17
 
-WORKDIR /
+WORKDIR /app
 
-COPY . /
+COPY ./ .
 
 RUN gradle installDist
 
