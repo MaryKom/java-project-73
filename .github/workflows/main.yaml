@@ -16,7 +16,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
-          build-root-directory: app
+#          build-root-directory: app
       - run: make build
       - name: Publish code coverage
 #        uses: paambaati/codeclimate-action@v2.7.1
