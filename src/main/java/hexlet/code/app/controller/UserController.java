@@ -30,7 +30,7 @@ public final class UserController {
     private final UserRepository userRepository;
 
     @PostMapping
-    public User registerNewUser(@RequestBody @Valid UserDto userDto) {
+    public User registerNewUser(@RequestBody @Valid final UserDto userDto) {
         return userService.createNewUser(userDto);
     }
 

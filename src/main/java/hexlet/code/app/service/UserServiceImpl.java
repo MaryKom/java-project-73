@@ -4,6 +4,7 @@ import hexlet.code.app.dto.UserDto;
 import hexlet.code.app.model.User;
 import hexlet.code.app.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -12,12 +13,12 @@ import javax.transaction.Transactional;
 @Service
 @Transactional
 @AllArgsConstructor
-public final class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User createNewUser(UserDto userDto) {
+    public User createNewUser(final UserDto userDto) {
         User user = new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
@@ -27,7 +28,7 @@ public final class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(long id, UserDto userDto) {
+    public User updateUser(final long id, final UserDto userDto) {
         User user = userRepository.findById(id).get();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
