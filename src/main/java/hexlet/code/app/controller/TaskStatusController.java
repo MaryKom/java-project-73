@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static hexlet.code.app.controller.TaskStatusController.TASK_STATUS_CONTROLLER_PATH;
@@ -28,7 +29,7 @@ public class TaskStatusController {
     private final TaskStatusRepository taskStatusRepository;
 
     @PostMapping
-    public TaskStatus createTaskStatus(@RequestBody final TaskStatusDto taskStatusDto) {
+    public TaskStatus createTaskStatus(@RequestBody @Valid final TaskStatusDto taskStatusDto) {
         return taskStatusService.createNewTaskStatus(taskStatusDto);
     }
 
@@ -44,12 +45,12 @@ public class TaskStatusController {
     }
 
     @PutMapping(ID)
-    public TaskStatus updateTaskStatusById(@PathVariable Long id, @RequestBody TaskStatusDto taskStatusDto) {
+    public TaskStatus updateTaskStatusById(@PathVariable Long id, @RequestBody @Valid TaskStatusDto taskStatusDto) {
         return taskStatusService.updateTaskStatus(id, taskStatusDto);
     }
 
     @DeleteMapping(ID)
     public void deleteTaskStatusById(@PathVariable Long id) {
-        taskStatusRepository.deleteById(id);git
+        taskStatusRepository.deleteById(id);
     }
 }

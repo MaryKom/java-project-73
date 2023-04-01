@@ -1,5 +1,7 @@
 package hexlet.code.app.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
@@ -12,7 +14,7 @@ import javax.validation.constraints.Email;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -28,25 +30,26 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
 
-    @NotNull
+    @NotBlank
     @Size(min = 1)
     private String firstName;
 
 
-    @NotNull
+    @NotBlank
     @Size(min = 1)
     private String lastName;
 
 
-    @NotNull
+    @NotBlank
     @Email
+    @Column(unique = true)
     private String email;
 
 
-    @NotNull
+    @NotBlank
     @JsonIgnore
     private String password;
     @CreationTimestamp
