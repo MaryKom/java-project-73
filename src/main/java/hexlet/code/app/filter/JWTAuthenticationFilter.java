@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+public final class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 

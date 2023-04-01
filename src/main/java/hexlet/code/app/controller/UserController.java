@@ -42,17 +42,17 @@ public final class UserController {
     }
 
     @GetMapping(ID)
-    public User getUserById(@PathVariable long id) {
+    public User getUserById(@PathVariable final long id) {
         return userRepository.findById(id).get();
     }
 
     @PutMapping(ID)
-    public User updateUser(@PathVariable long id, @RequestBody @Valid UserDto userDto) {
+    public User updateUser(@PathVariable final long id, @RequestBody @Valid final UserDto userDto) {
         return userService.updateUser(id, userDto);
     }
 
     @DeleteMapping(ID)
-    public void deleteUser(@PathVariable long id) {
+    public void deleteUser(@PathVariable final long id) {
         userRepository.deleteById(id);
     }
 }

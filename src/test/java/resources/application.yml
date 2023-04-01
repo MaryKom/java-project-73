@@ -1,4 +1,4 @@
-base-url: ""
+base-url: "/api"
 
 spring:
   application:
@@ -6,6 +6,8 @@ spring:
 
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: create-drop
 
   liquibase:
     enabled: true

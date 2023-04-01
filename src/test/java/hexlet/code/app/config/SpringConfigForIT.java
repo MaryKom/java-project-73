@@ -20,7 +20,7 @@ public class SpringConfigForIT {
     public static final String TEST_PROFILE = "test";
 
     @Bean
-    public RestTemplate restTemplate() {
+    public static RestTemplate restTemplate() {
         return new RestTemplateBuilder().build();
     }
 }

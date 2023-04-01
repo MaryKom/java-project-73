@@ -54,13 +54,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+    protected final void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder);
     }
 
     @Override
-    public void configure(final HttpSecurity http) throws Exception {
+    public final void configure(final HttpSecurity http) throws Exception {
         final var authenticationFilter = new JWTAuthenticationFilter(
                 authenticationManagerBean(),
                 loginRequest,

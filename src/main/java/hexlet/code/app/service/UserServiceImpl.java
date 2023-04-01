@@ -4,11 +4,12 @@ import hexlet.code.app.dto.UserDto;
 import hexlet.code.app.model.User;
 import hexlet.code.app.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.transaction.Transactional;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -19,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createNewUser(final UserDto userDto) {
-        User user = new User();
+        final User user = new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
@@ -29,7 +30,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(final long id, final UserDto userDto) {
-        User user = userRepository.findById(id).get();
+        final User user = userRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("User not found"));;
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
