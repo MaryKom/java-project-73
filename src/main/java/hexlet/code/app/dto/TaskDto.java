@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -22,6 +23,8 @@ public class TaskDto {
 
     @NotBlank
     private Long authorId;
+
+    private Set<Long> labelIds;
 
     private Long executorId;
 
