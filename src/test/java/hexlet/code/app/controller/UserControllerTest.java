@@ -1,4 +1,4 @@
-package hexlet.code.app;
+package hexlet.code.app.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import hexlet.code.app.dto.UserDto;
