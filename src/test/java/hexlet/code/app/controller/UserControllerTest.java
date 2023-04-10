@@ -42,7 +42,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @ActiveProfiles(TEST_PROFILE)
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = SpringConfigForIT.class)
-
 public class UserControllerTest {
 
     private String fullPath = "/api" + USER_CONTROLLER_PATH;
