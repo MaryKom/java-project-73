@@ -2,7 +2,6 @@ package hexlet.code.app.service;
 
 import hexlet.code.app.dto.TaskStatusDto;
 import hexlet.code.app.model.TaskStatus;
-import hexlet.code.app.model.User;
 import hexlet.code.app.repository.TaskStatusRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

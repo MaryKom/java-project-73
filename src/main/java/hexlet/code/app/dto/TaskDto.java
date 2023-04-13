@@ -21,9 +21,6 @@ public class TaskDto {
     @NotBlank
     private Long taskStatusId;
 
-    @NotBlank
-    private Long authorId;
-
     private Set<Long> labelIds;
 
     private Long executorId;

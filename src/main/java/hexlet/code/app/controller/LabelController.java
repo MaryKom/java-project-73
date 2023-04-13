@@ -37,8 +37,8 @@ public class LabelController {
 
     @Operation(summary = "Create new label")
     @ApiResponse(responseCode = "201", description = "Label created")
-    @ResponseStatus(CREATED)
     @PostMapping
+    @ResponseStatus(CREATED)
     public Label createLabel(@RequestBody @Valid final LabelDto labelDto) {
         return labelService.createNewLabel(labelDto);
     }

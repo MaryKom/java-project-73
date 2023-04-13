@@ -5,11 +5,13 @@ import hexlet.code.app.model.Task;
 import hexlet.code.app.repository.TaskRepository;
 import hexlet.code.app.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.querydsl.core.types.Predicate;
 
 import static hexlet.code.app.controller.TaskController.TASK_CONTROLLER_PATH;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -49,9 +51,9 @@ public class TaskController {
         @Content(schema = @Schema(implementation = Task.class))))
     @Operation(summary = "Get all tasks")
     @GetMapping
-    public List<Task> getAllTask() {
-        return taskRepository.findAll()
-                .stream().toList();
+    public  Iterable<Task> getAllTask(@Parameter(description = "Predicate based on query params")
+                                     @QuerydslPredicate(root = Task.class) Predicate predicate) {
+        return predicate == null ? taskRepository.findAll() : taskRepository.findAll(predicate);
     }
 
     @ApiResponses(@ApiResponse(responseCode = "200"))
