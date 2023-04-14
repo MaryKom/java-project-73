@@ -31,7 +31,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RequestMapping("${base-url}" + LABEL_CONTROLLER_PATH)
 public class LabelController {
     public static final String LABEL_CONTROLLER_PATH = "/labels";
-    public static final String ID = "/id";
+    public static final String ID = "/{id}";
     private final LabelService labelService;
     private final LabelRepository labelRepository;
 

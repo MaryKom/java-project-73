@@ -4,17 +4,21 @@ import hexlet.code.app.dto.UserDto;
 import hexlet.code.app.model.User;
 import hexlet.code.app.repository.UserRepository;
 import lombok.AllArgsConstructor;
-//import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.transaction.Transactional;
 import java.util.NoSuchElementException;
 
+import static hexlet.code.app.config.security.SecurityConfig.DEFAULT_AUTHORITIES;
+
 @Service
 @Transactional
 @AllArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -40,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public String getCurrentUserName() {
-        return null;
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
     @Override
@@ -48,5 +52,20 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(getCurrentUserName()).get();
     }
 
+    @Override
+    public UserDetails loadUserByUsername(final String username) throws NoSuchElementException {
+        return userRepository.findByEmail(username)
+                .map(this::buildSpringUser)
+                .orElseThrow(() -> new NoSuchElementException("Not found user with 'username': " + username));
+    }
+
+
+    private UserDetails buildSpringUser(final User user) {
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                DEFAULT_AUTHORITIES
+        );
+    }
 
 }

@@ -33,7 +33,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RequestMapping("${base-url}" + TASK_CONTROLLER_PATH)
 public class TaskController {
     public static final String TASK_CONTROLLER_PATH = "/tasks";
-    public static final String ID = "/id";
+    public static final String ID = "/{id}";
     private final TaskService taskService;
     private final TaskRepository taskRepository;
     private static final String TASK_OWNER =

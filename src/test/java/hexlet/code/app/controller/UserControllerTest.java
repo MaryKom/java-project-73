@@ -98,7 +98,7 @@ public class UserControllerTest {
     @Test
     public void createInvalidPasswordUser() throws Exception {
 
-        final var userDto = new UserDto(TEST_USERNAME, "first name", "last name", "pw");
+        final var userDto = new UserDto(TEST_USERNAME, "first name", "last name", "p");
 
         final var postRequest = MockMvcRequestBuilders.post(BASE_URL + USER_CONTROLLER_PATH)
                 .content(asJson(userDto))

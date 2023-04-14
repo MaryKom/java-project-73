@@ -8,13 +8,11 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -33,17 +31,14 @@ public class User {
 
 
     @NotBlank
-    @Size(min = 1)
     private String firstName;
 
 
     @NotBlank
-    @Size(min = 1)
     private String lastName;
 
 
     @NotBlank
-    @Email
     @Column(unique = true)
     private String email;
 
