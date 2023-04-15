@@ -27,7 +27,6 @@ public class RollbarConfig {
      */
     @Bean
     public Rollbar rollbar() {
-        //9a552721d243421987271e0ce13e4916
 
         return new Rollbar(getRollbarConfigs(rollbarToken));
     }
