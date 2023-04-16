@@ -11,7 +11,7 @@ import com.rollbar.spring.webmvc.RollbarSpringConfigBuilder;
 @Configuration
 @ComponentScan({
 // UPDATE TO YOUR PROJECT PACKAGE
-        "hexlet.code.app"
+    "hexlet.code.app"
 })
 public class RollbarConfig {
 
@@ -27,7 +27,6 @@ public class RollbarConfig {
      */
     @Bean
     public Rollbar rollbar() {
-
         return new Rollbar(getRollbarConfigs(rollbarToken));
     }
 
