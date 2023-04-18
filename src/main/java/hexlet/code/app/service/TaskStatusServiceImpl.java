@@ -24,8 +24,7 @@ public class TaskStatusServiceImpl implements TaskStatusService {
 
     @Override
     public TaskStatus updateTaskStatus(final Long id, final TaskStatusDto taskStatusDto) {
-        final TaskStatus taskStatus = taskStatusRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("TaskStatus not found"));
+        final TaskStatus taskStatus = taskStatusRepository.findById(id).get();
         taskStatus.setName(taskStatusDto.getName());
         return taskStatusRepository.save(taskStatus);
     }

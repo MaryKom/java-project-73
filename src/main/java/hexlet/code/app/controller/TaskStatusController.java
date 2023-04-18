@@ -57,7 +57,7 @@ public class TaskStatusController {
     @Operation(summary = "Get status")
     @GetMapping(ID)
     public TaskStatus getTaskStatusById(@PathVariable Long id) {
-        return taskStatusRepository.getById(id);
+        return taskStatusRepository.findById(id).get();
     }
 
     @ApiResponses(value = {

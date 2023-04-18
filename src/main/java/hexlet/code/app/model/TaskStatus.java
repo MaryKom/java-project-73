@@ -1,6 +1,8 @@
 package hexlet.code.app.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -21,6 +23,8 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @Table(name = "task_statuses")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TaskStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +38,8 @@ public class TaskStatus {
     @CreationTimestamp
     @Temporal(TIMESTAMP)
     private Date createdAt;
+
+    public TaskStatus(Long id) {
+        this.id = id;
+    }
 }

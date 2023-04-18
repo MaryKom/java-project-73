@@ -55,7 +55,7 @@ public class LabelController {
     @Operation(summary = "Get label")
     @GetMapping(ID)
     public Label getLabelById(@PathVariable final Long id) {
-        return labelRepository.getById(id);
+        return labelRepository.findById(id).get();
     }
 
     @ApiResponses(value = {

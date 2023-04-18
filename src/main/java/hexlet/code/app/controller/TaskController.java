@@ -52,7 +52,7 @@ public class TaskController {
     @Operation(summary = "Get all tasks")
     @GetMapping
     public  Iterable<Task> getAllTask(@Parameter(description = "Predicate based on query params")
-                                     @QuerydslPredicate(root = Task.class) Predicate predicate) {
+                                     @QuerydslPredicate Predicate predicate) {
         return predicate == null ? taskRepository.findAll() : taskRepository.findAll(predicate);
     }
 
@@ -60,7 +60,7 @@ public class TaskController {
     @Operation(summary = "Get task")
     @GetMapping(ID)
     public Task getTaskById(@PathVariable final Long id) {
-        return taskRepository.getById(id);
+        return taskRepository.findById(id).get();
     }
 
     @ApiResponses(value = {

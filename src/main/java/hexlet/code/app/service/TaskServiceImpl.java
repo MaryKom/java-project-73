@@ -1,9 +1,11 @@
 package hexlet.code.app.service;
 
 import hexlet.code.app.dto.TaskDto;
+import hexlet.code.app.model.Label;
 import hexlet.code.app.model.Task;
 import hexlet.code.app.model.TaskStatus;
 import hexlet.code.app.model.User;
+import hexlet.code.app.repository.LabelRepository;
 import hexlet.code.app.repository.TaskRepository;
 import hexlet.code.app.repository.TaskStatusRepository;
 import hexlet.code.app.repository.UserRepository;
@@ -12,50 +14,53 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 @AllArgsConstructor
 public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
-    private final TaskStatusRepository taskStatusRepository;
     private final UserService userService;
-    private final UserRepository userRepository;
 
     @Override
-    public Task createNewTask(final TaskDto taskDto) {
-        final Task task = new Task();
-        task.setName(taskDto.getName());
-        task.setDescription(taskDto.getDescription());
-        final User author = userService.getCurrentUser();
-        task.setAuthor(author);
-        if (taskDto.getExecutorId() != null) {
-            final User executor = userRepository.findById(taskDto.getExecutorId())
-                    .orElseThrow(() -> new NoSuchElementException("Executor not found"));
-            task.setExecutor(executor);
-        }
-        final TaskStatus taskStatus = taskStatusRepository.findById(taskDto.getTaskStatusId())
-                .orElseThrow(() -> new NoSuchElementException("TaskStatus not found"));
-        task.setTaskStatus(taskStatus);
-        return taskRepository.save(task);
+    public Task createNewTask(TaskDto taskDto) {
+        final Task newTask = fromDto(taskDto);
+        return taskRepository.save(newTask);
     }
 
     @Override
-    public Task updateTask(final Long id, final TaskDto taskDto) {
-        final Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Task not found"));
-        task.setName(taskDto.getName());
-        task.setDescription(taskDto.getDescription());
+    public Task updateTask(Long id, TaskDto taskDto) {
+        final Task taskToUpdate = fromDto(taskDto);
+        taskToUpdate.setId(id);
+        return taskRepository.save(taskToUpdate);
+    }
+
+    private Task fromDto(final TaskDto dto) {
         final User author = userService.getCurrentUser();
-        task.setAuthor(author);
-        if (taskDto.getExecutorId() != null) {
-            final User executor = userRepository.findById(taskDto.getExecutorId())
-                    .orElseThrow(() -> new NoSuchElementException("Executor not found"));
-            task.setExecutor(executor);
-        }
-        final TaskStatus taskStatus = taskStatusRepository.findById(taskDto.getTaskStatusId())
-                .orElseThrow(() -> new NoSuchElementException("TaskStatus not found"));
-        task.setTaskStatus(taskStatus);
-        return taskRepository.save(task);
+        final User executor = Optional.ofNullable(dto.getExecutorId())
+                .map(User::new)
+                .orElse(null);
+        final TaskStatus taskStatus = Optional.ofNullable(dto.getTaskStatusId())
+                .map(TaskStatus::new)
+                .orElse(null);
+        final Set<Label> labels = Optional.ofNullable(dto.getLabelIds())
+                .orElse(Set.of())
+                .stream()
+                .filter(Objects::nonNull)
+                .map(Label::new)
+                .collect(Collectors.toSet());
+
+        return Task.builder()
+                .author(author)
+                .executor(executor)
+                .taskStatus(taskStatus)
+                .labels(labels)
+                .name(dto.getName())
+                .description(dto.getDescription())
+                .build();
     }
 }

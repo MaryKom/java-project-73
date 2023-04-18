@@ -1,6 +1,9 @@
 package hexlet.code.app.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -10,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 //import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -26,6 +30,9 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @Table(name = "tasks")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,23 +40,22 @@ public class Task {
 
     @NotBlank
     @Size(min = 1)
-    @Column(unique = true)
     private String name;
 
     private String description;
 
     @NotNull
     @ManyToOne
-    //@JoinColumn(name = "task_status_id")
+    @JoinColumn(name = "task_status_id")
     private TaskStatus taskStatus;
 
     @NotNull
     @ManyToOne
-    //@JoinColumn(name = "author_id")
+    @JoinColumn(name = "author_id")
     private User author;
 
     @ManyToOne
-    //@JoinColumn(name = "executor_id")
+    @JoinColumn(name = "executor_id")
     private User executor;
 
     @ManyToMany
@@ -58,4 +64,8 @@ public class Task {
     @CreationTimestamp
     @Temporal(TIMESTAMP)
     private Date createdAt;
+
+    public Task(Long id) {
+        this.id = id;
+    }
 }

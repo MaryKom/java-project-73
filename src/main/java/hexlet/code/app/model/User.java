@@ -5,7 +5,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -23,6 +26,8 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @Table(name = "users")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -50,4 +55,7 @@ public class User {
     @Temporal(TIMESTAMP)
     private Date createdAt;
 
+    public User(final Long id) {
+        this.id = id;
+    }
 }
