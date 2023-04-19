@@ -33,7 +33,6 @@ import static hexlet.code.app.controller.LabelController.LABEL_CONTROLLER_PATH;
 import static hexlet.code.app.controller.TaskStatusController.TASK_STATUS_CONTROLLER_PATH;
 import static hexlet.code.app.controller.TaskController.ID;
 import static hexlet.code.app.controller.TaskController.TASK_CONTROLLER_PATH;
-import static hexlet.code.app.controller.UserController.USER_CONTROLLER_PATH;
 import static hexlet.code.app.utils.TestUtils.TEST_USERNAME;
 import static hexlet.code.app.utils.TestUtils.asJson;
 import static hexlet.code.app.utils.TestUtils.fromJson;
