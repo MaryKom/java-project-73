@@ -5,15 +5,11 @@ import hexlet.code.app.model.Label;
 import hexlet.code.app.model.Task;
 import hexlet.code.app.model.TaskStatus;
 import hexlet.code.app.model.User;
-import hexlet.code.app.repository.LabelRepository;
 import hexlet.code.app.repository.TaskRepository;
-import hexlet.code.app.repository.TaskStatusRepository;
-import hexlet.code.app.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
