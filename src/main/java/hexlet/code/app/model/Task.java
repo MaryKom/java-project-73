@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,6 +26,7 @@ import java.util.Date;
 import java.util.Set;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
+import static org.hibernate.annotations.FetchMode.JOIN;
 
 @Entity
 @Table(name = "tasks")
@@ -59,6 +61,7 @@ public class Task {
     private User executor;
 
     @ManyToMany
+    @Fetch(JOIN)
     private Set<Label> labels;
 
     @CreationTimestamp

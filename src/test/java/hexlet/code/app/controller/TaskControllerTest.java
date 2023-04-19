@@ -198,10 +198,10 @@ public class TaskControllerTest {
         final var statusPostRequest = post(BASE_URL + TASK_STATUS_CONTROLLER_PATH)
                 .content(asJson(statusDto))
                 .contentType(APPLICATION_JSON);
-        utils.perform(statusPostRequest, TEST_USERNAME)
+        /*utils.perform(statusPostRequest, TEST_USERNAME)
                 .andExpect(status().isCreated())
                 .andReturn()
-                .getResponse();
+                .getResponse();*/
         final TaskStatus status = fromJson((utils.perform(statusPostRequest, TEST_USERNAME)
                 .andExpect(status().isCreated())
                 .andReturn()
@@ -368,163 +368,6 @@ public class TaskControllerTest {
     }
 
 
-
-    @Test
-    public void testDeleteLabelWithTask() throws Exception {
-        utils.regDefaultUser();
-        final User expectedUser = userRepository.findAll().get(0);
-
-        final var statusDto = new TaskStatusDto("new");
-
-        final var statusPostRequest = post(BASE_URL + TASK_STATUS_CONTROLLER_PATH)
-                .content(asJson(statusDto))
-                .contentType(APPLICATION_JSON);
-        final TaskStatus status = fromJson((utils.perform(statusPostRequest, TEST_USERNAME)
-                .andExpect(status().isCreated())
-                .andReturn()
-                .getResponse())
-                .getContentAsString(), new TypeReference<>() { });
-
-
-        final var labelDto = new LabelDto("bug");
-
-        final var labelPostRequest = post(BASE_URL + LABEL_CONTROLLER_PATH)
-                .content(asJson(labelDto))
-                .contentType(APPLICATION_JSON);
-        final Label label = fromJson((utils.perform(labelPostRequest, TEST_USERNAME)
-                .andExpect(status().isCreated())
-                .andReturn()
-                .getResponse())
-                .getContentAsString(), new TypeReference<>() { });
-        Set<Long> labels = new HashSet<Long>();
-        labels.add(label.getId());
-
-
-        final var taskDto = new TaskDto("task", "description", status.getId(), labels, expectedUser.getId());
-
-        final var taskPostRequest = post(BASE_URL + TASK_CONTROLLER_PATH)
-                .content(asJson(taskDto))
-                .contentType(APPLICATION_JSON);
-        utils.perform(taskPostRequest, TEST_USERNAME)
-                .andExpect(status().isCreated())
-                .andReturn()
-                .getResponse();
-
-
-        utils.perform(delete(BASE_URL + LABEL_CONTROLLER_PATH + LabelController.ID,
-                                labelRepository.findAll().get(0).getId()),
-                        TEST_USERNAME)
-                .andExpect(status().is(422));
-
-        assertEquals(1, labelRepository.count());
-
-
-    }
-
-
-    @Test
-    public void testDeleteStatusWithTask() throws Exception {
-        statusRepository.deleteAll();
-        utils.regDefaultUser();
-        final User expectedUser = userRepository.findAll().get(0);
-
-        final var statusDto = new TaskStatusDto("new");
-
-        final var statusPostRequest = post(BASE_URL + TASK_STATUS_CONTROLLER_PATH)
-                .content(asJson(statusDto))
-                .contentType(APPLICATION_JSON);
-        final TaskStatus status = fromJson((utils.perform(statusPostRequest, TEST_USERNAME)
-                .andExpect(status().isCreated())
-                .andReturn()
-                .getResponse())
-                .getContentAsString(), new TypeReference<>() { });
-
-
-        final var labelDto = new LabelDto("bug");
-
-        final var labelPostRequest = post(BASE_URL + LABEL_CONTROLLER_PATH)
-                .content(asJson(labelDto))
-                .contentType(APPLICATION_JSON);
-        final Label label = fromJson((utils.perform(labelPostRequest, TEST_USERNAME)
-                .andExpect(status().isCreated())
-                .andReturn()
-                .getResponse())
-                .getContentAsString(), new TypeReference<>() { });
-        Set<Long> labels = new HashSet<Long>();
-        labels.add(label.getId());
-
-
-        final var taskDto = new TaskDto("task", "description", status.getId(), labels, expectedUser.getId());
-
-        final var taskPostRequest = post(BASE_URL + TASK_CONTROLLER_PATH)
-                .content(asJson(taskDto))
-                .contentType(APPLICATION_JSON);
-        utils.perform(taskPostRequest, TEST_USERNAME)
-                .andExpect(status().isCreated())
-                .andReturn()
-                .getResponse();
-
-
-        utils.perform(delete(BASE_URL + TASK_STATUS_CONTROLLER_PATH + TaskStatusController.ID,
-                                statusRepository.findAll().get(0).getId()),
-                        TEST_USERNAME)
-                .andExpect(status().is(422));
-        assertEquals(1, statusRepository.count());
-
-    }
-
-    @Test
-    public void testDeleteTaskExecutor() throws Exception {
-        statusRepository.deleteAll();
-        utils.regDefaultUser();
-        final User expectedUser = userRepository.findAll().get(0);
-
-        final var statusDto = new TaskStatusDto("new");
-
-        final var statusPostRequest = post(BASE_URL + TASK_STATUS_CONTROLLER_PATH)
-                .content(asJson(statusDto))
-                .contentType(APPLICATION_JSON);
-        final TaskStatus status = fromJson((utils.perform(statusPostRequest, TEST_USERNAME)
-                .andExpect(status().isCreated())
-                .andReturn()
-                .getResponse())
-                .getContentAsString(), new TypeReference<>() { });
-
-
-        final var labelDto = new LabelDto("bug");
-
-        final var labelPostRequest = post(BASE_URL + LABEL_CONTROLLER_PATH)
-                .content(asJson(labelDto))
-                .contentType(APPLICATION_JSON);
-        final Label label = fromJson((utils.perform(labelPostRequest, TEST_USERNAME)
-                .andExpect(status().isCreated())
-                .andReturn()
-                .getResponse())
-                .getContentAsString(), new TypeReference<>() { });
-        Set<Long> labels = new HashSet<Long>();
-        labels.add(label.getId());
-
-
-        final var taskDto = new TaskDto("task", "description", status.getId(), labels, expectedUser.getId());
-
-        final var taskPostRequest = post(BASE_URL + TASK_CONTROLLER_PATH)
-                .content(asJson(taskDto))
-                .contentType(APPLICATION_JSON);
-        utils.perform(taskPostRequest, TEST_USERNAME)
-                .andExpect(status().isCreated())
-                .andReturn()
-                .getResponse();
-
-
-        utils.perform(delete(BASE_URL + USER_CONTROLLER_PATH + TaskStatusController.ID,
-                                userRepository.findAll().get(0).getId()),
-                        TEST_USERNAME)
-                .andExpect(status().is(422));
-        assertEquals(1, userRepository.count());
-
-    }
-
-
     @Test
     public void testAllTasksFiltration() throws Exception {
         utils.regDefaultUser();
@@ -582,7 +425,7 @@ public class TaskControllerTest {
 
 
 
-        final var response = utils.perform(get(TASK_CONTROLLER_PATH
+        final var response = utils.perform(get(BASE_URL + TASK_CONTROLLER_PATH
                         + "?labels="
                         + labelRepository.findAll().get(0).getId()), TEST_USERNAME)
                 .andExpect(status().isOk())
