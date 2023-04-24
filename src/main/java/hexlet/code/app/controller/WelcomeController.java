@@ -2,16 +2,13 @@ package hexlet.code.app.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
+
 @RestController
 public final class WelcomeController {
     @GetMapping(path = "/")
-    public String root() {
+    public RedirectView root() {
         return new RedirectView("/api/users");
     }
 
-    @GetMapping(path = "/rollbar")
-    public String rollbarSend() {
-        rollbar.debug("Here is some debug message");
-        return "Rollbar message send";
-    }
 }
