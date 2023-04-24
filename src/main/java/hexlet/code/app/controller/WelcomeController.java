@@ -6,6 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 public final class WelcomeController {
     @GetMapping(path = "/")
     public String root() {
-        return "Welcome to Spring";
+        return new RedirectView("/api/users");
+    }
+
+    @GetMapping(path = "/rollbar")
+    public String rollbarSend() {
+        rollbar.debug("Here is some debug message");
+        return "Rollbar message send";
     }
 }
