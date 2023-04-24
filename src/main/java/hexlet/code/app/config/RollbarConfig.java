@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import com.rollbar.notifier.Rollbar;
 import com.rollbar.notifier.config.Config;
 import com.rollbar.spring.webmvc.RollbarSpringConfigBuilder;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration()
 @EnableWebMvc
