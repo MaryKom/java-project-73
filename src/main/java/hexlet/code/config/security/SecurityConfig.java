@@ -41,12 +41,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                           final UserDetailsService userDetailsService,
                           final PasswordEncoder passwordEncoder,
                           final JWTHelper jwtHelper) {
-        this.loginRequest = new AntPathRequestMatcher("/api" + LOGIN, POST.toString());
+        this.loginRequest = new AntPathRequestMatcher(baseUrl + LOGIN, POST.toString());
         this.publicUrls = new OrRequestMatcher(
                 loginRequest,
-                new AntPathRequestMatcher("/api" + UserController.USER_CONTROLLER_PATH, POST.toString()),
-                new AntPathRequestMatcher("/api" + UserController.USER_CONTROLLER_PATH, GET.toString()),
-                new NegatedRequestMatcher(new AntPathRequestMatcher("/api" + "/**"))
+                new AntPathRequestMatcher(baseUrl + UserController.USER_CONTROLLER_PATH, POST.toString()),
+                new AntPathRequestMatcher(baseUrl + UserController.USER_CONTROLLER_PATH, GET.toString()),
+                new NegatedRequestMatcher(new AntPathRequestMatcher(baseUrl + "/**"))
         );
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
