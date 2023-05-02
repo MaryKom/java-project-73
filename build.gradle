@@ -19,7 +19,7 @@ java {
 
 
 application {
-    mainClass = 'hexlet.code.app.AppApplication'
+    mainClass = 'hexlet.code.AppApplication'
 }
 
 
@@ -119,7 +119,7 @@ liquibase {
             username ''
             password ''
             // Сравниваем с моделями, задавая пакет
-            referenceUrl 'hibernate:spring:hexlet.code.app.model' +
+            referenceUrl 'hibernate:spring:hexlet.code.model' +
                     '?dialect=org.hibernate.dialect.H2Dialect' +
                     '&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy'
         }
