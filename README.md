@@ -8,6 +8,6 @@
 
 Task Manager is a small application for task management. It allows to create a task, assign it and change its statuses. To get full access you must go through onboarding and authentication processes first.. The project uses the following technologies: Spring Boot, Spring Security, Hibernate, Swing, and Rollbar.
 
-To explore the application follow the link: [web-production-d27f.up.railway.app](web-production-d27f.up.railway.app)
+To explore the application follow the link: [https://web-production-d27f.up.railway.app](https://web-production-d27f.up.railway.app)
 
-Open API documentation: [web-production-d27f.up.railway.app/swagger-ui.html](web-production-d27f.up.railway.app/swagger-ui.html)
+Open API documentation: [https://web-production-d27f.up.railway.app/swagger-ui.html](https://web-production-d27f.up.railway.app/swagger-ui.html)
